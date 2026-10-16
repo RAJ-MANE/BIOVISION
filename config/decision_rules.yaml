@@ -1,0 +1,56 @@
+# BioVision Decision Engine & Retail Policy Rules
+
+rules:
+  # Action logic evaluated in priority order (first matching condition triggers)
+  actions:
+    - id: "ACTION_DISCARD"
+      name: "Immediate Removal & Compost"
+      code: "DISCARD"
+      condition: "shelf_life_days <= 1.0 or degradation_score >= 0.85"
+      suggested_discount: 1.00
+      audit_reason: "Critical internal breakdown detected. Zero commercial shelf-life."
+      badge_color: "#ef4444"
+
+    - id: "ACTION_REPURPOSE"
+      name: "Route to Deli / Kitchen (Immediate Processing)"
+      code: "REPURPOSE"
+      condition: "shelf_life_days <= 2.5 or degradation_score >= 0.65"
+      suggested_discount: 0.60
+      audit_reason: "Sub-surface softening advanced. Prime for guacamole/salad preparation today."
+      badge_color: "#f97316"
+
+    - id: "ACTION_DISCOUNT_HEAVY"
+      name: "Apply 50% Dynamic Markdown"
+      code: "MARKDOWN_50"
+      condition: "shelf_life_days <= 4.0 or degradation_score >= 0.50"
+      suggested_discount: 0.50
+      audit_reason: "High velocity needed. Shelf life under 4 days; accelerate sell-through."
+      badge_color: "#eab308"
+
+    - id: "ACTION_DISCOUNT_MODERATE"
+      name: "Apply 20% Quick-Sale Markdown"
+      code: "MARKDOWN_20"
+      condition: "shelf_life_days <= 6.0 or degradation_score >= 0.35"
+      suggested_discount: 0.20
+      audit_reason: "Pre-symptomatic internal changes detected; prioritize forward display."
+      badge_color: "#3b82f6"
+
+    - id: "ACTION_KEEP"
+      name: "Maintain Full Price / Premium Display"
+      code: "MAINTAIN"
+      condition: "shelf_life_days > 6.0 and degradation_score < 0.35"
+      suggested_discount: 0.00
+      audit_reason: "Internal tissue density intact. Full commercial shelf-life expected."
+      badge_color: "#10b981"
+
+economics:
+  default_wholesale_cost_per_kg: 2.10
+  default_retail_price_per_kg: 4.80
+  default_units_per_box: 24
+  average_weight_kg_per_unit: 0.20
+
+fefo:
+  weights:
+    shelf_life_remaining: 0.55
+    degradation_score: 0.30
+    batch_age_days: 0.15

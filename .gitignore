@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# PyTorch / Models
+*.pt
+*.pth
+*.onnx
+artifacts/models/
+checkpoints/
+
+# Data
+data/raw/
+data/processed/
+data/ripe_track/
+*.mat
+*.h5
+*.hdf5
+*.zip
+*.tar.gz
+
+# Database
+*.db
+*.sqlite3
+biovision.db
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+logs/
+*.log
+.coverage
+htmlcov/
+.pytest_cache/

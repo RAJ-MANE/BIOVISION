@@ -1,0 +1,8 @@
+"""
+Pytest configuration ensuring root project directory is in python search path.
+"""
+import sys
+import os
+
+# Ensure project root is in sys.path
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))

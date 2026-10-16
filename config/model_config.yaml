@@ -1,0 +1,47 @@
+# BioVision Model & Dataset Configuration
+
+produce:
+  name: "Avocado (Hass)"
+  stages:
+    1: "Hard / Underripe"
+    2: "Breaking / Pre-conditioned"
+    3: "Firm Ripe (Salad / Slice)"
+    4: "Ripe / Soft (Guacamole / Immediate Use)"
+    5: "Overripe / Senescent"
+  shelf_life_days_max: 14.0
+
+image:
+  size: [224, 224]
+  rgb_mean: [0.485, 0.456, 0.406]
+  rgb_std: [0.229, 0.224, 0.225]
+  nir_mean: [0.5]
+  nir_std: [0.25]
+  nir_channels: 1
+
+models:
+  rgb:
+    backbone: "mobilenet_v3_small"
+    pretrained: true
+    feature_dim: 256
+    dropout: 0.2
+  nir:
+    backbone: "lightweight_cnn"
+    in_channels: 1
+    feature_dim: 256
+    dropout: 0.2
+  fusion:
+    method: "late_concat"
+    fusion_hidden_dim: 256
+    dropout: 0.25
+    num_classes: 5
+    mc_dropout_samples: 20
+    uncertainty_threshold: 0.35
+
+training:
+  batch_size: 16
+  num_workers: 0
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  epochs: 15
+  seed: 42
+  early_stopping_patience: 4
